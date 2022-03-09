@@ -18,6 +18,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+//Gcsclient的实现
 /** An implementation of GcsClient. */
 public class GcsClient {
   private static Logger LOGGER = LoggerFactory.getLogger(GcsClient.class);
