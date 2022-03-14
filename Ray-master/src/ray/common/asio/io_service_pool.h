@@ -21,6 +21,10 @@
 
 namespace ray {
 
+/// 类 IOServicePool
+/// io_service池。每个io_service都拥有一个线程
+/// 要从该池获取io_service，需要先调用'Run()'
+/// 再退出前必须调用'Stop()'
 /// \class IOServicePool
 /// The io_service pool. Each io_service owns a thread.
 /// To get io_service from this pool should call `Run()` first.
@@ -35,11 +39,17 @@ class IOServicePool {
 
   void Stop();
 
+  /// 通过循环选择io_service
+  /// 返回 io_service
   /// Select io_service by round robin.
   ///
   /// \return io_service
   instrumented_io_context *Get();
 
+  /// 通过哈希获取io_service
+  /// 参数 hash 使用这个hash来获取io_service
+  /// 相同的哈希总会获得相同的io_service
+  /// 返回 io_service
   /// Select io_service by hash.
   ///
   /// \param hash Use this hash to pick a io_service.
@@ -47,6 +57,8 @@ class IOServicePool {
   /// \return io_service
   instrumented_io_context *Get(size_t hash);
 
+  /// 获取所有io_service
+  /// 这只用于RedisClient::Connect()
   /// Get all io_service.
   /// This is only use for RedisClient::Connect().
   std::vector<instrumented_io_context *> GetAll();
